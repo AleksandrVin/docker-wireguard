@@ -53,6 +53,22 @@ elif [ "$1" == "remove" ]; then
 
     echo "Peer $PEER_NAME removed successfully."
 
+# command suspend. Remove peer from config but don't delete conf files
+elif [ "$1" == "suspend" ]; then
+
+    PEER_NAME="$2"
+
+    # remove PEER_NAME from PEERS variable
+    PEERS="${PEERS//,$PEER_NAME/}"
+
+    # Generate the peer configuration
+    source /etc/s6-overlay/s6-rc.d/init-wireguard-confs/run
+
+    # Restart the WireGuard interface (optional)
+    wg syncconf wg0 <(wg-quick strip "$SERVER_CONFIG")
+
+    echo "Peer $PEER_NAME suspended successfully."
+
 else
     echo "Usage: $0 {add|remove} peer_name peer_ip peer_port"
     exit 1
