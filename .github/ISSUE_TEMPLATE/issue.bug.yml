@@ -53,7 +53,6 @@ body:
       options:
         - x86-64
         - arm64
-        - armhf
     validations:
       required: true
   - type: textarea
@@ -68,10 +67,10 @@ body:
   - type: textarea
     attributes:
       description: |
-        Provide a full docker log, output of "docker logs linuxserver.io"
+        Provide a full docker log, output of "docker logs wireguard"
       label: Container logs
       placeholder: |
-        Output of `docker logs linuxserver.io`
+        Output of `docker logs wireguard`
       render: bash
     validations:
       required: true
